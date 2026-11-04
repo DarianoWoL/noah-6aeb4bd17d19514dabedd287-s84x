@@ -10,6 +10,7 @@ const Header = () => (
       </a>
       <nav className="flex items-center gap-5 font-display text-xs tracking-[0.15em] text-muted-foreground">
         <a href="#live" className="transition-colors hover:text-primary">LIVE</a>
+        <a href="#activity" className="transition-colors hover:text-primary">ACTIVITY</a>
         <a href={EXPLORER_CONTRACT_URL} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-primary">
           CONTRACT
         </a>

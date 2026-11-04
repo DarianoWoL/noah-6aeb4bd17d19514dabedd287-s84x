@@ -4,11 +4,14 @@ import { TESTNET_CONFIG } from '@/lib/config';
 /** War of Lords game contract on DogeOS Chikyu Testnet. */
 export const WAR_OF_LORDS_ADDRESS = '0x55b5838C405230246da2c805b81A6AA09F4980a7';
 
-/** Minimal read-only ABI — only the view functions the dashboard needs. */
+/** Minimal read-only ABI — only the views and events the dashboard needs. */
 export const WAR_OF_LORDS_ABI = [
   'function prizePool() view returns (uint256)',
   'function treasury() view returns (uint256)',
   'function season() view returns (uint256)',
+  'event TicketPurchased(address buyer, uint8 kind, uint256 price, uint256 nonce)',
+  'event PrizeCredited(bytes32 ref, address winner, uint256 amount)',
+  'event PrizeClaimed(address winner, uint256 amount)',
 ];
 
 /** Placeholder — replace with the real game URL. */
@@ -16,7 +19,7 @@ export const PLAY_GAME_URL = 'https://example.com/play';
 
 export const EXPLORER_CONTRACT_URL = `${TESTNET_CONFIG.explorerUrl.replace(/\/$/, '')}/address/${WAR_OF_LORDS_ADDRESS}`;
 
-const provider = new ethers.JsonRpcProvider(TESTNET_CONFIG.rpcUrl, TESTNET_CONFIG.chainId, {
+export const provider = new ethers.JsonRpcProvider(TESTNET_CONFIG.rpcUrl, TESTNET_CONFIG.chainId, {
   staticNetwork: true,
 });
 
