@@ -1,6 +1,8 @@
 import Header from '@/components/arena/Header';
 import Hero from '@/components/arena/Hero';
+import HowItWorks from '@/components/arena/HowItWorks';
 import LiveStats from '@/components/arena/LiveStats';
+import Simulation from '@/components/arena/Simulation';
 import ArenaActivity from '@/components/arena/ArenaActivity';
 import ContractLink from '@/components/arena/ContractLink';
 import Footer from '@/components/arena/Footer';
@@ -10,8 +12,10 @@ const Index = () => (
     <Header />
     <main>
       <Hero />
+      <HowItWorks />
       <LiveStats />
       <ArenaActivity />
+      <Simulation />
       <ContractLink />
     </main>
     <Footer />

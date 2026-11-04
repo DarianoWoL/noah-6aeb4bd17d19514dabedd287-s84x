@@ -8,9 +8,11 @@ const Header = () => (
         <Swords className="h-5 w-5" />
         <span className="font-display text-sm font-bold tracking-[0.2em] sm:text-base">WAR OF LORDS</span>
       </a>
-      <nav className="flex items-center gap-5 font-display text-xs tracking-[0.15em] text-muted-foreground">
+      <nav className="flex items-center gap-4 font-display text-xs tracking-[0.15em] text-muted-foreground sm:gap-5">
+        <a href="#how" className="hidden transition-colors hover:text-primary md:inline">HOW IT WORKS</a>
         <a href="#live" className="transition-colors hover:text-primary">LIVE</a>
-        <a href="#activity" className="transition-colors hover:text-primary">ACTIVITY</a>
+        <a href="#activity" className="hidden transition-colors hover:text-primary sm:inline">ACTIVITY</a>
+        <a href="#simulation" className="hidden transition-colors hover:text-primary md:inline">SIMULATION</a>
         <a href={EXPLORER_CONTRACT_URL} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-primary">
           CONTRACT
         </a>
