@@ -90,6 +90,7 @@
     --doge-sand: 45 100% 83%;
     --doge-cream-2: 48 100% 88%;
     --doge-shadow: 39 100% 39%; /* #c98400 */
+    --doge-pill: 47 100% 92%; /* #fff6d6 */
 
     --background: 51 100% 97%;
     --foreground: 36 100% 15%; /* #4a2c00 */
@@ -364,6 +365,47 @@
 
 [data-theme='doge'] .header-bar a { color: hsl(var(--foreground)); }
 [data-theme='doge'] .header-bar a:hover { color: hsl(var(--primary)); }
+
+/* ---------- Header nav pills ---------- */
+/* Classic: gold outline pill */
+.nav-pill {
+  align-items: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid hsl(var(--primary));
+  border-radius: 9999px;
+  background: transparent;
+  color: hsl(var(--primary));
+  line-height: 1.2;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-pill:hover {
+  background: hsl(var(--primary) / 0.14);
+}
+
+/* Doge: chunky cream pill with hard shadow */
+[data-theme='doge'] .header-bar .nav-pill {
+  padding: 0.25rem 0.75rem;
+  border: 3px solid hsl(var(--foreground));
+  background: hsl(var(--doge-pill));
+  color: hsl(var(--foreground));
+  font-weight: 700;
+  box-shadow: 0 3px 0 hsl(var(--doge-shadow));
+}
+
+[data-theme='doge'] .header-bar .nav-pill:hover {
+  background: hsl(0 0% 100%);
+  color: hsl(var(--foreground));
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 hsl(var(--doge-shadow));
+}
+
+@media (max-width: 639px) {
+  .nav-pill { padding: 0.3rem 0.6rem; }
+  [data-theme='doge'] .header-bar .nav-pill { padding: 0.2rem 0.55rem; }
+}
 
 /* Table / list rows */
 [data-theme='doge'] .theme-row { background-color: hsl(var(--muted)); }
