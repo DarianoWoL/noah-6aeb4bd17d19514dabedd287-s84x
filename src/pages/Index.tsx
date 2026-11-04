@@ -7,9 +7,12 @@ import Simulation from '@/components/arena/Simulation';
 import ArenaActivity from '@/components/arena/ArenaActivity';
 import ContractLink from '@/components/arena/ContractLink';
 import Footer from '@/components/arena/Footer';
+import SkyClouds from '@/components/arena/SkyClouds';
+import ThemeToggle from '@/components/arena/ThemeToggle';
 
 const Index = () => (
   <div className="grain relative min-h-screen">
+    <SkyClouds />
     <Header />
     <main>
       <Hero />
@@ -21,6 +24,7 @@ const Index = () => (
       <ContractLink />
     </main>
     <Footer />
+    <ThemeToggle />
   </div>
 );
 

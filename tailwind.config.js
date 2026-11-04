@@ -13,8 +13,8 @@ export default {
 	  },
 	  extend: {
 		fontFamily: {
-		  display: ["Cinzel", "serif"],
-		  body: ["Cormorant Garamond", "Georgia", "serif"],
+		  display: ["var(--font-display)"],
+		  body: ["var(--font-body)"],
 		},
 		colors: {
 		  gold: {
@@ -23,6 +23,10 @@ export default {
 			glow: "hsl(var(--gold-glow))",
 		  },
 		  silver: "hsl(var(--silver))",
+		  stat: {
+			value: "hsl(var(--stat-value))",
+			label: "hsl(var(--stat-label))",
+		  },
 		  bronze: "hsl(var(--bronze))",
 		  border: "hsl(var(--border))",
 		  input: "hsl(var(--input))",

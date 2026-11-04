@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Clock, Ticket, Users } from 'lucide-react';
-import { JOIN_URL, formatAmount, type ArenaRoom } from '@/lib/arenaApi';
+import { MINI_TOURNAMENTS_URL, formatAmount, type ArenaRoom } from '@/lib/arenaApi';
 import PrizeList from './PrizeList';
 
 const RoomCard = ({ room, index }: { room: ArenaRoom; index: number }) => (
@@ -19,7 +19,7 @@ const RoomCard = ({ room, index }: { room: ArenaRoom; index: number }) => (
         { icon: Users, label: 'PLAYERS', value: `Up to ${room.maxPlayers}` },
         { icon: Ticket, label: 'TICKET', value: `${formatAmount(room.ticketDoge)} DOGE` },
       ].map(({ icon: Icon, label, value }) => (
-        <div key={label} className="rounded-md border border-primary/15 px-2 py-3">
+        <div key={label} className="theme-row rounded-md border border-primary/15 px-2 py-3">
           <Icon className="mx-auto h-4 w-4 text-primary" />
           <dt className="mt-1 font-display text-[10px] tracking-[0.15em] text-muted-foreground">{label}</dt>
           <dd className="text-base font-semibold text-foreground">{value}</dd>
@@ -30,7 +30,7 @@ const RoomCard = ({ room, index }: { room: ArenaRoom; index: number }) => (
     <PrizeList prizes={room.prizesDoge} />
 
     <a
-      href={JOIN_URL}
+      href={MINI_TOURNAMENTS_URL}
       target="_blank"
       rel="noopener noreferrer"
       className="btn-gold mt-auto rounded-md px-6 py-3 text-center font-display text-xs font-bold tracking-[0.18em]"

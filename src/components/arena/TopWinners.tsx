@@ -21,7 +21,7 @@ const TopWinners = ({ winners }: { winners: Winner[] }) => (
         </thead>
         <tbody className="divide-y divide-primary/10">
           {winners.map((w, i) => (
-            <tr key={w.address} className="transition-colors hover:bg-primary/5">
+            <tr key={w.address} className="theme-row transition-colors hover:bg-primary/5">
               <td className={`px-5 py-3 font-display ${i < 3 ? 'text-primary' : 'text-muted-foreground'}`}>{i + 1}</td>
               <td className="py-3 font-mono text-sm">
                 <a href={addressUrl(w.address)} target="_blank" rel="noopener noreferrer" className="hover:text-primary">

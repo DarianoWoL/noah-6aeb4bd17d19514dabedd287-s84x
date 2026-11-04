@@ -1,11 +1,24 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="doge">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>War of Lords Arena - Onchain Tournaments on DogeOS</title>
     <meta name="description" content="Live dashboard for War of Lords: prize pool, treasury and season data straight from the DogeOS testnet contract." />
+    <!-- Apply the saved theme before first paint (Doge is the default). -->
+    <script>
+      (function () {
+        var theme = 'doge';
+        try {
+          var saved = window.localStorage.getItem('wol-theme');
+          if (saved === 'classic' || saved === 'doge') theme = saved;
+        } catch (e) {
+          /* storage unavailable: keep default */
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

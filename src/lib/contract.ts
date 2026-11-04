@@ -14,8 +14,8 @@ export const WAR_OF_LORDS_ABI = [
   'event PrizeClaimed(address indexed winner, uint256 amount)',
 ];
 
-/** Placeholder — replace with the real game URL. */
-export const PLAY_GAME_URL = 'https://example.com/play';
+/** Game invite link used by every "Play the game" button. */
+export const PLAY_GAME_URL = 'https://dogeos.waroflords.pl/?invite=5deeaa99831f69dfca8e66465de555ab8d3e';
 
 export const EXPLORER_CONTRACT_URL = `${TESTNET_CONFIG.explorerUrl.replace(/\/$/, '')}/address/${WAR_OF_LORDS_ADDRESS}`;
 

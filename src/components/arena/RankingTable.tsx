@@ -19,7 +19,7 @@ const RankingTable = ({ ranking }: { ranking: RankingEntry[] }) => (
       </thead>
       <tbody className="divide-y divide-primary/10">
         {ranking.map((p) => (
-          <tr key={`${p.rank}-${p.nick}`} className="transition-colors hover:bg-primary/5">
+          <tr key={`${p.rank}-${p.nick}`} className="theme-row transition-colors hover:bg-primary/5">
             <td className={`px-5 py-3 font-display font-bold ${rankColor(p.rank)}`}>{p.rank}</td>
             <td className="max-w-[200px] truncate py-3 text-lg font-semibold text-foreground">{p.nick}</td>
             <td className="py-3 text-right font-display font-bold text-primary">{fmt(p.skillPoints)}</td>

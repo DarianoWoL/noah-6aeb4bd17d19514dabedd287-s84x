@@ -1,8 +1,12 @@
 /** Public, read-only War of Lords game server endpoint (CORS enabled, no key). */
 export const ARENA_API_URL = 'https://dogeos.waroflords.pl/api/public/arena';
 
-/** Invite link used by every "Join and play" / "Play" button. */
+/** Main game invite link, used by every "Play" button. */
 export const JOIN_URL = 'https://dogeos.waroflords.pl/?invite=5deeaa99831f69dfca8e66465de555ab8d3e';
+
+/** Mini tournaments invite link, used by the room cards' "Join and play" buttons. */
+export const MINI_TOURNAMENTS_URL =
+  'https://dogeos.waroflords.pl/mini-tournaments.html?invite=5deeaa99831f69dfca8e66465de555ab8d3e';
 
 export interface ArenaRoom {
   name: string;

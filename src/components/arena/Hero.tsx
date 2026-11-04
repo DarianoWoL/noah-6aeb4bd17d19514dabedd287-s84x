@@ -3,6 +3,7 @@ import { ShieldAlert, Swords } from 'lucide-react';
 import heroImage from '@/assets/hero-arena.jpg';
 import { PLAY_GAME_URL } from '@/lib/contract';
 import Embers from './Embers';
+import HeroSky from './HeroSky';
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 24 },
@@ -12,21 +13,26 @@ const fadeUp = (delay: number) => ({
 
 const Hero = () => (
   <section className="relative flex min-h-[92vh] items-center overflow-hidden">
-    <img src={heroImage} alt="" className="absolute inset-0 h-full w-full object-cover" />
-    <div className="absolute inset-0" style={{ background: 'var(--gradient-hero-fade)' }} />
-    <Embers />
+    {/* Classic: dark castle scene */}
+    <img src={heroImage} alt="" className="classic-only absolute inset-0 h-full w-full object-cover" />
+    <div className="classic-only absolute inset-0" style={{ background: 'var(--gradient-hero-fade)' }} />
+    <div className="classic-only">
+      <Embers />
+    </div>
+    {/* Doge: bright sky scene */}
+    <HeroSky />
 
-    <div className="container relative z-10 px-4 pt-24 sm:px-8">
+    <div className="container relative z-10 px-4 pb-28 pt-28 sm:px-8">
       <motion.span
         {...fadeUp(0)}
-        className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-background/60 px-3 py-1 font-display text-[11px] tracking-[0.12em] text-primary backdrop-blur-md"
+        className="hero-badge inline-flex items-center gap-2 rounded-full border border-primary/40 bg-background/60 px-3 py-1 font-display text-[11px] tracking-[0.12em] text-primary backdrop-blur-md"
       >
         <ShieldAlert className="h-3.5 w-3.5" />
         TESTNET - TEST DOGE HAS NO VALUE
       </motion.span>
 
       <motion.h1 {...fadeUp(0.15)} className="mt-6 max-w-4xl text-4xl font-black leading-[1.05] sm:text-6xl lg:text-7xl">
-        <span className="text-gold-gradient">War of Lords</span>
+        <span className="text-gold-gradient hero-title">War of Lords</span>
         <span className="mt-2 block text-2xl font-medium tracking-[0.08em] text-foreground sm:text-4xl lg:text-5xl">
           Onchain Tournaments
         </span>
