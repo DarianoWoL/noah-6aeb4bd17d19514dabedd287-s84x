@@ -12,7 +12,16 @@ export default {
 		},
 	  },
 	  extend: {
+		fontFamily: {
+		  display: ["Cinzel", "serif"],
+		  body: ["Cormorant Garamond", "Georgia", "serif"],
+		},
 		colors: {
+		  gold: {
+			DEFAULT: "hsl(var(--primary))",
+			deep: "hsl(var(--gold-deep))",
+			glow: "hsl(var(--gold-glow))",
+		  },
 		  border: "hsl(var(--border))",
 		  input: "hsl(var(--input))",
 		  ring: "hsl(var(--ring))",
