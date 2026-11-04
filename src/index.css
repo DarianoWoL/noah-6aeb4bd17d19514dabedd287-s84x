@@ -385,7 +385,8 @@
   background: hsl(var(--primary) / 0.14);
 }
 
-/* Doge: chunky cream pill with hard shadow */
+/* Doge: chunky cream pill with hard shadow (header, footer, simulation) */
+[data-theme='doge'] .nav-pill,
 [data-theme='doge'] .header-bar .nav-pill {
   padding: 0.25rem 0.75rem;
   border: 3px solid hsl(var(--foreground));
@@ -395,6 +396,7 @@
   box-shadow: 0 3px 0 hsl(var(--doge-shadow));
 }
 
+[data-theme='doge'] .nav-pill:hover,
 [data-theme='doge'] .header-bar .nav-pill:hover {
   background: hsl(0 0% 100%);
   color: hsl(var(--foreground));
@@ -404,7 +406,15 @@
 
 @media (max-width: 639px) {
   .nav-pill { padding: 0.3rem 0.6rem; }
+  [data-theme='doge'] .nav-pill,
   [data-theme='doge'] .header-bar .nav-pill { padding: 0.2rem 0.55rem; }
+}
+
+/* Footer: doge gets a solid cream band with a chunky top border */
+[data-theme='doge'] .site-footer {
+  background: hsl(var(--card));
+  border-top: 4px solid hsl(var(--foreground));
+  font-weight: 500;
 }
 
 /* Table / list rows */
