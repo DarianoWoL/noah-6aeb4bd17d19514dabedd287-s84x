@@ -22,6 +22,8 @@ export default {
 			deep: "hsl(var(--gold-deep))",
 			glow: "hsl(var(--gold-glow))",
 		  },
+		  silver: "hsl(var(--silver))",
+		  bronze: "hsl(var(--bronze))",
 		  border: "hsl(var(--border))",
 		  input: "hsl(var(--input))",
 		  ring: "hsl(var(--ring))",

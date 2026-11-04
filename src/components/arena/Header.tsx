@@ -10,6 +10,8 @@ const Header = () => (
       </a>
       <nav className="flex items-center gap-4 font-display text-xs tracking-[0.15em] text-muted-foreground sm:gap-5">
         <a href="#how" className="hidden transition-colors hover:text-primary md:inline">HOW IT WORKS</a>
+        <a href="#tournaments" className="hidden transition-colors hover:text-primary lg:inline">TOURNAMENTS</a>
+        <a href="#hall-of-fame" className="hidden transition-colors hover:text-primary lg:inline">HALL OF FAME</a>
         <a href="#live" className="transition-colors hover:text-primary">LIVE</a>
         <a href="#activity" className="hidden transition-colors hover:text-primary sm:inline">ACTIVITY</a>
         <a href="#simulation" className="hidden transition-colors hover:text-primary md:inline">SIMULATION</a>
