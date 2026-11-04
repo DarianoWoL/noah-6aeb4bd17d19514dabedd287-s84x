@@ -2,7 +2,10 @@ import { ethers } from 'ethers';
 import { provider, WAR_OF_LORDS_ABI, WAR_OF_LORDS_ADDRESS } from '@/lib/contract';
 
 export const LOOKBACK_BLOCKS = 20_000;
+/** Max blocks per getLogs call (the RPC rejects ranges above 10,000). */
 const CHUNK_SIZE = 2_000;
+/** How many chunk requests run at the same time. */
+const CHUNK_CONCURRENCY = 4;
 const FEED_LIMIT = 30;
 const TOP_WINNERS_LIMIT = 10;
 
@@ -43,7 +46,20 @@ export interface ArenaActivity {
   eventCount: number;
 }
 
-/** Reads the last LOOKBACK_BLOCKS blocks of contract logs in CHUNK_SIZE windows. */
+/** Fetches one block range; returns null instead of throwing if the RPC call fails. */
+async function fetchChunk(fromBlock: number, toBlock: number): Promise<ethers.Log[] | null> {
+  try {
+    return await provider.getLogs({ address: WAR_OF_LORDS_ADDRESS, topics: [EVENT_TOPICS], fromBlock, toBlock });
+  } catch (err) {
+    console.warn(`Skipping blocks ${fromBlock}-${toBlock}:`, err);
+    return null;
+  }
+}
+
+/**
+ * Reads the last LOOKBACK_BLOCKS blocks of logs in CHUNK_SIZE windows,
+ * CHUNK_CONCURRENCY at a time. Failed chunks are skipped; throws only if every chunk failed.
+ */
 async function fetchLogs(): Promise<ethers.Log[]> {
   const latest = await provider.getBlockNumber();
   const start = Math.max(0, latest - LOOKBACK_BLOCKS + 1);
@@ -51,28 +67,38 @@ async function fetchLogs(): Promise<ethers.Log[]> {
   for (let from = start; from <= latest; from += CHUNK_SIZE) {
     ranges.push([from, Math.min(from + CHUNK_SIZE - 1, latest)]);
   }
-  const chunks = await Promise.all(
-    ranges.map(([fromBlock, toBlock]) =>
-      provider.getLogs({ address: WAR_OF_LORDS_ADDRESS, topics: [EVENT_TOPICS], fromBlock, toBlock })
-    )
-  );
-  return chunks.flat();
+
+  const results: (ethers.Log[] | null)[] = [];
+  for (let i = 0; i < ranges.length; i += CHUNK_CONCURRENCY) {
+    const batch = ranges.slice(i, i + CHUNK_CONCURRENCY);
+    results.push(...(await Promise.all(batch.map(([from, to]) => fetchChunk(from, to)))));
+  }
+
+  const ok = results.filter((r): r is ethers.Log[] => r !== null);
+  if (ranges.length > 0 && ok.length === 0) throw new Error('All log chunks failed');
+  return ok.flat();
 }
 
+/** Decodes one log; returns null (and skips it) if it can't be parsed. */
 function toArenaEvent(log: ethers.Log): ArenaEvent | null {
-  const parsed = iface.parseLog({ topics: [...log.topics], data: log.data });
-  if (!parsed || !(parsed.name in EVENT_KINDS)) return null;
-  const isTicket = parsed.name === 'TicketPurchased';
-  return {
-    id: `${log.transactionHash}-${log.index}`,
-    kind: EVENT_KINDS[parsed.name as EventName],
-    player: isTicket ? parsed.args.buyer : parsed.args.winner,
-    amount: isTicket ? parsed.args.price : parsed.args.amount,
-    txHash: log.transactionHash,
-    blockNumber: log.blockNumber,
-    logIndex: log.index,
-    timestamp: null,
-  };
+  try {
+    const parsed = iface.parseLog({ topics: [...log.topics], data: log.data });
+    if (!parsed || !(parsed.name in EVENT_KINDS)) return null;
+    const isTicket = parsed.name === 'TicketPurchased';
+    return {
+      id: `${log.transactionHash}-${log.index}`,
+      kind: EVENT_KINDS[parsed.name as EventName],
+      player: String(isTicket ? parsed.args.buyer : parsed.args.winner),
+      amount: BigInt(isTicket ? parsed.args.price : parsed.args.amount),
+      txHash: log.transactionHash,
+      blockNumber: log.blockNumber,
+      logIndex: log.index,
+      timestamp: null,
+    };
+  } catch (err) {
+    console.warn('Skipping undecodable log:', log.transactionHash, err);
+    return null;
+  }
 }
 
 function rankWinners(events: ArenaEvent[]): Winner[] {

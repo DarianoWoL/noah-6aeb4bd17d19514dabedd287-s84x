@@ -9,9 +9,9 @@ export const WAR_OF_LORDS_ABI = [
   'function prizePool() view returns (uint256)',
   'function treasury() view returns (uint256)',
   'function season() view returns (uint256)',
-  'event TicketPurchased(address buyer, uint8 kind, uint256 price, uint256 nonce)',
-  'event PrizeCredited(bytes32 ref, address winner, uint256 amount)',
-  'event PrizeClaimed(address winner, uint256 amount)',
+  'event TicketPurchased(address indexed buyer, uint8 indexed kind, uint256 price, uint256 indexed nonce)',
+  'event PrizeCredited(bytes32 indexed ref, address indexed winner, uint256 amount)',
+  'event PrizeClaimed(address indexed winner, uint256 amount)',
 ];
 
 /** Placeholder — replace with the real game URL. */
