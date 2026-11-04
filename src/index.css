@@ -410,6 +410,47 @@
   [data-theme='doge'] .header-bar .nav-pill { padding: 0.2rem 0.55rem; }
 }
 
+/* ---------- Mobile menu dropdown (< 900px) ---------- */
+/* Classic: dark glass panel with gold outline */
+.mobile-menu {
+  margin-top: 0.5rem;
+  z-index: 30;
+  background: hsl(var(--card) / 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid hsl(var(--primary) / 0.4);
+  border-radius: calc(var(--radius) * 3);
+  box-shadow: var(--shadow-card);
+  animation: menu-drop 0.2s ease-out;
+}
+
+.header-bar .mobile-menu .nav-pill {
+  padding: 0.8rem 1rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.15em;
+}
+
+/* Doge: cream card, chunky brown border, hard shadow */
+[data-theme='doge'] .mobile-menu {
+  background: hsl(var(--card));
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 4px solid hsl(var(--foreground));
+  border-radius: 28px;
+  box-shadow: 0 6px 0 hsl(var(--doge-shadow));
+}
+
+[data-theme='doge'] .header-bar .mobile-menu .nav-pill {
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+}
+
+@keyframes menu-drop {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* Footer: doge gets a solid cream band with a chunky top border */
 [data-theme='doge'] .site-footer {
   background: hsl(var(--card));

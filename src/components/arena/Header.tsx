@@ -1,5 +1,6 @@
 import { Swords } from 'lucide-react';
 import { EXPLORER_CONTRACT_URL } from '@/lib/contract';
+import MobileMenu from './MobileMenu';
 
 const Header = () => (
   <header className="absolute inset-x-0 top-0 z-20">
@@ -8,9 +9,11 @@ const Header = () => (
         <a href="#" className="flex shrink-0 items-center gap-2 text-primary">
           <Swords className="classic-only h-5 w-5" />
           <span className="doge-only text-lg leading-none" aria-hidden>🐶</span>
-          <span className="font-display text-sm font-bold tracking-[0.2em] sm:text-base">WAR OF LORDS</span>
+          <span className="whitespace-nowrap font-display text-[13px] font-bold tracking-[0.12em] min-[400px]:text-sm min-[400px]:tracking-[0.2em] sm:text-base">
+            WAR OF LORDS
+          </span>
         </a>
-        <nav className="flex min-w-0 items-center justify-end gap-1.5 font-display text-[11px] tracking-[0.12em] sm:gap-2 sm:text-xs">
+        <nav className="hidden min-w-0 items-center min-[900px]:flex justify-end gap-1.5 font-display text-[11px] tracking-[0.12em] sm:gap-2 sm:text-xs">
           <a href="#how" className="nav-pill hidden md:inline-flex">HOW IT WORKS</a>
           <a href="#tournaments" className="nav-pill hidden lg:inline-flex">TOURNAMENTS</a>
           <a href="#hall-of-fame" className="nav-pill hidden lg:inline-flex">HALL OF FAME</a>
@@ -21,6 +24,7 @@ const Header = () => (
             CONTRACT
           </a>
         </nav>
+        <MobileMenu />
       </div>
     </div>
   </header>
