@@ -1,7 +1,7 @@
 import { TESTNET_CONFIG } from '@/lib/config';
 
 const FOOTER_LINKS = [
-  { label: 'Source code', href: 'https://github.com/darekdarek412412-source/war-of-lords-dogeos' },
+  { label: 'Source code', href: 'https://github.com/DarianoWoL/war-of-lords-dogeos' },
   {
     label: 'Contract',
     href: 'https://blockscout.testnet.dogeos.com/address/0x55b5838C405230246da2c805b81A6AA09F4980a7',
