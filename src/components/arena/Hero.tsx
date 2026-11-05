@@ -2,8 +2,10 @@ import { motion } from 'framer-motion';
 import { ShieldAlert, Swords } from 'lucide-react';
 import heroImage from '@/assets/hero-arena.jpg';
 import { PLAY_GAME_URL } from '@/lib/contract';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import Embers from './Embers';
 import HeroSky from './HeroSky';
+import HeroMascot from './mascot/HeroMascot';
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 24 },
@@ -11,7 +13,11 @@ const fadeUp = (delay: number) => ({
   transition: { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] as const },
 });
 
-const Hero = () => (
+const Hero = () => {
+  // One mascot instance: on the hill (desktop) or under the Play button (phones).
+  const isPhone = useMediaQuery('(max-width: 767px)');
+
+  return (
   <section className="relative flex min-h-[92vh] items-center overflow-hidden">
     {/* Classic: dark castle scene */}
     <img src={heroImage} alt="" className="classic-only absolute inset-0 h-full w-full object-cover" />
@@ -21,6 +27,7 @@ const Hero = () => (
     </div>
     {/* Doge: bright sky scene */}
     <HeroSky />
+    {!isPhone && <HeroMascot variant="perched" />}
 
     <div className="container relative z-10 px-4 pb-28 pt-28 sm:px-8">
       <motion.span
@@ -53,8 +60,11 @@ const Hero = () => (
           PLAY THE GAME
         </a>
       </motion.div>
+
+      {isPhone && <HeroMascot variant="inline" />}
     </div>
   </section>
-);
+  );
+};
 
 export default Hero;
