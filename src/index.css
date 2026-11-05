@@ -378,6 +378,46 @@
 [data-theme='doge'] .header-bar a { color: hsl(var(--foreground)); }
 [data-theme='doge'] .header-bar a:hover { color: hsl(var(--primary)); }
 
+/* ---------- Header crest logo (both themes) ---------- */
+/* Phones: 90px (~71px tall); bar starts after it, menu stays at the right */
+.site-logo {
+  position: absolute;
+  z-index: 10;
+  top: 2px;
+  left: 0.5rem;
+  width: 90px;
+  line-height: 0;
+  transition: transform 0.25s ease;
+}
+
+.site-logo:hover { transform: translateY(-2px) scale(1.03); }
+
+.site-logo:focus-visible {
+  outline: 3px solid hsl(var(--ring));
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+.site-logo-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: brightness(1.15) drop-shadow(0 0 3px rgba(255, 248, 214, 0.95)) drop-shadow(0 0 12px rgba(255, 236, 160, 0.6)) drop-shadow(0 6px 8px rgba(0, 0, 0, 0.45));
+}
+
+.header-bar--logo { margin-left: 96px; }
+
+/* Desktop: 190px crest (~149px tall) hanging below the bar */
+@media (min-width: 768px) {
+  .site-logo { left: 1rem; width: 190px; }
+  .header-bar--logo { margin-left: 184px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-logo { transition: none; }
+  .site-logo:hover { transform: none; }
+}
+
 /* ---------- Header nav pills ---------- */
 /* Classic: gold outline pill */
 .nav-pill {
@@ -583,6 +623,8 @@
 
 @media (max-width: 767px) {
   .float-coin { display: none; }
+  /* Phones: small coin tucked in the top-right corner, below the header, above the badge */
+  .hero-coin { top: 84px; right: 12px; width: 56px; }
 }
 
 /* ---------- Shiba flag on the front hill ---------- */

@@ -29,7 +29,8 @@ const Hero = () => {
     <HeroSky />
     {!isPhone && <HeroMascot variant="perched" />}
 
-    <div className="container relative z-10 px-4 pb-28 pt-28 sm:px-8">
+    {/* Top padding clears the hanging header logo (and the phone coin) */}
+    <div className="container relative z-10 px-4 pb-28 pt-40 sm:px-8 md:pt-44">
       <motion.span
         {...fadeUp(0)}
         className="hero-badge inline-flex items-center gap-2 rounded-full border border-primary/40 bg-background/60 px-3 py-1 font-display text-[11px] tracking-[0.12em] text-primary backdrop-blur-md"
