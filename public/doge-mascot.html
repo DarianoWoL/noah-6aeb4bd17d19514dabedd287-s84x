@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Doge Mascot - War of Lords</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐶</text></svg>" />
+<style>
+  /* Demo page only - not part of the mascot block */
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    min-height: 100vh;
+    font-family: 'Fredoka', 'Baloo 2', 'Nunito', 'Trebuchet MS', system-ui, sans-serif;
+    color: #4a2c00;
+    background:
+      radial-gradient(circle at 80% 15%, rgba(255, 255, 255, 0.7), transparent 40%),
+      linear-gradient(180deg, #8fd3ff 0%, #c8ecff 55%, #9be27a 55%, #6cc24a 100%);
+  }
+  .demo-title {
+    text-align: center;
+    padding: 48px 16px 0;
+    font-size: clamp(22px, 5vw, 36px);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-shadow: 0 3px 0 #fff6d6;
+  }
+  .demo-sub { text-align: center; margin: 8px 16px 0; font-size: 15px; opacity: 0.85; }
+</style>
+</head>
+<body>
+  <h1 class="demo-title">War of Lords - Doge Mascot</h1>
+  <p class="demo-sub">Press "Next" in the speech bubble. Click the doge to bring the bubble back.</p>
+
+  <!-- ===================== DOGE MASCOT BLOCK (copy from here) ===================== -->
+  <div id="doge-mascot" class="dm-hidden">
+    <style>
+      #doge-mascot {
+        --dm-outline: #4a2c00;
+        --dm-fur: #f3a935;
+        --dm-cream: #fff3d6;
+        --dm-tunic: #2f6fd6;
+        --dm-tunic-dark: #1f4fa3;
+        --dm-gold: #f5c542;
+        --dm-bubble: #fffdf2;
+        --dm-btn: #fff6d6;
+        --dm-btn-shadow: #c98400;
+        /* Remove these 4 lines to place the mascot inline instead of fixed */
+        position: fixed;
+        left: 12px;
+        bottom: 8px;
+        z-index: 9999;
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+        font-family: 'Fredoka', 'Baloo 2', 'Nunito', 'Trebuchet MS', system-ui, sans-serif;
+        pointer-events: none;
+      }
+      #doge-mascot * { box-sizing: border-box; }
+      #doge-mascot .dm-svg {
+        width: 170px;
+        height: auto;
+        flex-shrink: 0;
+        overflow: visible;
+        cursor: pointer;
+        pointer-events: auto;
+        filter: drop-shadow(0 4px 0 rgba(74, 44, 0, 0.15));
+      }
+
+      /* ---------- Figure animations ---------- */
+      #doge-mascot .dm-figure { transform-origin: 120px 262px; animation: dm-breathe 2.6s ease-in-out infinite; }
+      #doge-mascot .dm-tail { transform-origin: 160px 206px; animation: dm-wag 0.7s ease-in-out infinite; }
+      #doge-mascot.talking .dm-tail { animation-duration: 0.35s; }
+      #doge-mascot .dm-eyes { transform-origin: 120px 98px; animation: dm-blink 4.2s infinite; }
+      #doge-mascot .dm-head { transform-origin: 120px 150px; }
+      #doge-mascot.talking .dm-head { animation: dm-nod 0.55s ease-in-out infinite alternate; }
+      #doge-mascot .dm-arm { transform-origin: 138px 200px; }
+      #doge-mascot.waving .dm-arm { animation: dm-wave 1.8s ease-in-out; }
+      #doge-mascot .dm-mouth-open { opacity: 0; transform-origin: 120px 121px; }
+      #doge-mascot.talking .dm-mouth-open { opacity: 1; animation: dm-talk 0.2s ease-in-out infinite alternate; }
+      #doge-mascot.talking .dm-mouth-closed { opacity: 0; }
+
+      @keyframes dm-breathe {
+        0%, 100% { transform: translateY(0) scale(1, 1); }
+        50% { transform: translateY(-4px) scale(1.012, 0.99); }
+      }
+      @keyframes dm-wag {
+        0%, 100% { transform: rotate(-9deg); }
+        50% { transform: rotate(11deg); }
+      }
+      @keyframes dm-blink {
+        0%, 92%, 100% { transform: scaleY(1); }
+        95% { transform: scaleY(0.1); }
+      }
+      @keyframes dm-nod {
+        from { transform: rotate(-2.5deg); }
+        to { transform: rotate(2.5deg); }
+      }
+      @keyframes dm-talk {
+        from { transform: scaleY(0.25); }
+        to { transform: scaleY(1); }
+      }
+      @keyframes dm-wave {
+        0% { transform: rotate(0deg); }
+        18% { transform: rotate(-150deg); }
+        32% { transform: rotate(-120deg); }
+        46% { transform: rotate(-150deg); }
+        60% { transform: rotate(-120deg); }
+        76% { transform: rotate(-145deg); }
+        100% { transform: rotate(0deg); }
+      }
+
+      /* ---------- Speech bubble ---------- */
+      #doge-mascot .dm-bubble {
+        position: relative;
+        margin-bottom: 104px;
+        margin-left: 12px;
+        width: max-content;
+        max-width: min(300px, calc(100vw - 210px));
+        min-width: 170px;
+        padding: 12px 14px 10px;
+        background: var(--dm-bubble);
+        border: 3px solid var(--dm-outline);
+        border-radius: 20px;
+        box-shadow: 0 4px 0 var(--dm-btn-shadow);
+        color: var(--dm-outline);
+        pointer-events: auto;
+        transform-origin: left bottom;
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      }
+      #doge-mascot.dm-hidden .dm-bubble {
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(0.85) translateY(6px);
+        pointer-events: none;
+      }
+      #doge-mascot .dm-bubble::before,
+      #doge-mascot .dm-bubble::after {
+        content: '';
+        position: absolute;
+        border-style: solid;
+        width: 0;
+        height: 0;
+      }
+      #doge-mascot .dm-bubble::before {
+        left: -19px;
+        bottom: 18px;
+        border-width: 10px 16px 10px 0;
+        border-color: transparent var(--dm-outline) transparent transparent;
+      }
+      #doge-mascot .dm-bubble::after {
+        left: -14px;
+        bottom: 21px;
+        border-width: 7px 12px 7px 0;
+        border-color: transparent var(--dm-bubble) transparent transparent;
+      }
+      #doge-mascot .dm-text {
+        margin: 0;
+        min-height: 2.6em;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+      #doge-mascot .dm-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 6px;
+        margin-top: 8px;
+      }
+      #doge-mascot .dm-btn {
+        font: inherit;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        padding: 3px 12px;
+        color: var(--dm-outline);
+        background: var(--dm-btn);
+        border: 2px solid var(--dm-outline);
+        border-radius: 9999px;
+        box-shadow: 0 2px 0 var(--dm-btn-shadow);
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+      }
+      #doge-mascot .dm-btn:hover { background: #ffffff; transform: translateY(-2px); box-shadow: 0 4px 0 var(--dm-btn-shadow); }
+      #doge-mascot .dm-btn:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--dm-btn-shadow); }
+      #doge-mascot .dm-btn:focus-visible { outline: 3px solid var(--dm-tunic); outline-offset: 2px; }
+      #doge-mascot .dm-sr {
+        position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+        overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+      }
+
+      @media (max-width: 480px) {
+        #doge-mascot .dm-svg { width: 120px; }
+        #doge-mascot .dm-bubble {
+          margin-bottom: 76px;
+          min-width: 0;
+          max-width: calc(100vw - 160px);
+          padding: 10px 11px 8px;
+        }
+        #doge-mascot .dm-text { font-size: 14px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #doge-mascot *, #doge-mascot .dm-figure { animation: none !important; transition: none !important; }
+      }
+    </style>
+
+    <svg class="dm-svg" viewBox="0 0 240 280" role="img" aria-label="Doge knight mascot" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="120" cy="266" rx="78" ry="9" fill="#4a2c00" opacity="0.18" />
+      <g class="dm-figure" stroke="#4a2c00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+        <!-- Curly tail -->
+        <g class="dm-tail">
+          <path d="M156 214 C192 216 216 190 208 160 C202 136 172 134 167 156 C164 171 180 178 189 168 C188 188 174 198 154 198 Z" fill="#f3a935" />
+          <path d="M175 150 C186 144 198 150 200 160 C192 156 182 156 175 150 Z" fill="#fff3d6" stroke-width="3" />
+        </g>
+
+        <!-- Haunches and back feet -->
+        <ellipse cx="80" cy="236" rx="26" ry="23" fill="#f3a935" />
+        <ellipse cx="160" cy="236" rx="26" ry="23" fill="#f3a935" />
+        <ellipse cx="66" cy="257" rx="19" ry="9" fill="#fff3d6" />
+        <ellipse cx="174" cy="257" rx="19" ry="9" fill="#fff3d6" />
+
+        <!-- Torso and cream chest -->
+        <path d="M84 250 C72 214 80 168 120 162 C160 168 168 214 156 250 Z" fill="#f3a935" />
+        <ellipse cx="120" cy="184" rx="24" ry="17" fill="#fff3d6" stroke="none" />
+
+        <!-- Knight tunic -->
+        <path d="M84 182 Q98 172 108 174 L120 198 L132 174 Q142 172 156 182 L162 234 Q120 248 78 234 Z" fill="#2f6fd6" />
+        <path d="M100 200 L104 236 M140 200 L136 236" stroke="#1f4fa3" stroke-width="3" fill="none" />
+        <path d="M108 175 L120 198 L132 175" stroke="#f5c542" stroke-width="4" fill="none" />
+        <path d="M80 233 Q120 247 160 233" stroke="#f5c542" stroke-width="5" fill="none" />
+        <circle cx="120" cy="216" r="9" fill="#f5c542" stroke-width="3" />
+        <path d="M120 210 L122 214.5 L126.5 215 L123 218 L124 222.5 L120 220 L116 222.5 L117 218 L113.5 215 L118 214.5 Z" fill="#fff3d6" stroke-width="1.5" />
+
+        <!-- Left front leg (static) -->
+        <g>
+          <rect x="92" y="198" width="20" height="62" rx="10" fill="#f3a935" />
+          <ellipse cx="102" cy="258" rx="14" ry="8" fill="#fff3d6" />
+          <rect x="89" y="192" width="26" height="18" rx="8" fill="#2f6fd6" />
+          <path d="M91 209 L113 209" stroke="#f5c542" stroke-width="3" />
+        </g>
+
+        <!-- Head -->
+        <g class="dm-head">
+          <path d="M70 84 L76 30 L110 62 Z" fill="#f3a935" />
+          <path d="M80 70 L82 44 L100 62 Z" fill="#ffc9a6" stroke-width="3" />
+          <path d="M170 84 L164 30 L130 62 Z" fill="#f3a935" />
+          <path d="M160 70 L158 44 L140 62 Z" fill="#ffc9a6" stroke-width="3" />
+          <ellipse cx="120" cy="105" rx="54" ry="47" fill="#f3a935" />
+          <path d="M78 116 C84 98 104 102 120 108 C136 102 156 98 162 116 C160 140 140 151 120 151 C100 151 80 140 78 116 Z" fill="#fff3d6" stroke="none" />
+          <ellipse cx="120" cy="105" rx="54" ry="47" fill="none" />
+          <ellipse cx="98" cy="82" rx="7" ry="4" fill="#fff3d6" stroke="none" />
+          <ellipse cx="142" cy="82" rx="7" ry="4" fill="#fff3d6" stroke="none" />
+
+          <g class="dm-eyes" stroke="none">
+            <ellipse cx="100" cy="98" rx="6.5" ry="8.5" fill="#4a2c00" />
+            <circle cx="102.5" cy="94.5" r="2.4" fill="#ffffff" />
+            <ellipse cx="140" cy="98" rx="6.5" ry="8.5" fill="#4a2c00" />
+            <circle cx="142.5" cy="94.5" r="2.4" fill="#ffffff" />
+          </g>
+          <ellipse cx="86" cy="117" rx="8" ry="5" fill="#ff8a7a" opacity="0.45" stroke="none" />
+          <ellipse cx="154" cy="117" rx="8" ry="5" fill="#ff8a7a" opacity="0.45" stroke="none" />
+
+          <ellipse cx="120" cy="112" rx="8.5" ry="6" fill="#4a2c00" stroke-width="2" />
+          <ellipse cx="117.5" cy="110" rx="2.6" ry="1.6" fill="#ffffff" stroke="none" opacity="0.8" />
+          <path class="dm-mouth-closed" d="M108 121 Q114 128 120 121 Q126 128 132 121" fill="none" stroke-width="3" />
+          <g class="dm-mouth-open">
+            <path d="M109 120 Q120 120 131 120 Q130 140 120 140 Q110 140 109 120 Z" fill="#8a2a1a" stroke-width="3" />
+            <path d="M113 133 Q120 126 127 133 Q125 139 120 139 Q115 139 113 133 Z" fill="#ff8fa0" stroke="none" />
+          </g>
+
+          <!-- Tiny crown -->
+          <g transform="rotate(-8 120 56)">
+            <path d="M102 66 L97 42 L109 53 L120 36 L131 53 L143 42 L138 66 Z" fill="#f5c542" stroke-width="3.5" />
+            <path d="M102 66 L138 66" stroke-width="3.5" />
+            <circle cx="120" cy="56" r="3.6" fill="#e2453c" stroke-width="2" />
+            <circle cx="108" cy="60" r="2.6" fill="#2f6fd6" stroke-width="2" />
+            <circle cx="132" cy="60" r="2.6" fill="#2f6fd6" stroke-width="2" />
+          </g>
+        </g>
+
+        <!-- Right front leg (waves) -->
+        <g class="dm-arm">
+          <rect x="128" y="198" width="20" height="62" rx="10" fill="#f3a935" />
+          <ellipse cx="138" cy="258" rx="14" ry="8" fill="#fff3d6" />
+          <path d="M133 256 L133 262 M143 256 L143 262" stroke-width="2.5" />
+          <rect x="125" y="192" width="26" height="18" rx="8" fill="#2f6fd6" />
+          <path d="M127 209 L149 209" stroke="#f5c542" stroke-width="3" />
+        </g>
+      </g>
+    </svg>
+
+    <div class="dm-bubble" aria-hidden="true">
+      <p class="dm-text" aria-hidden="true"></p>
+      <span class="dm-sr" aria-live="polite"></span>
+      <div class="dm-actions">
+        <button type="button" class="dm-btn dm-next">Next</button>
+        <button type="button" class="dm-btn dm-hide">Hide</button>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var root = document.getElementById('doge-mascot');
+        if (!root || window.DogeMascot) return;
+
+        var svg = root.querySelector('.dm-svg');
+        var arm = root.querySelector('.dm-arm');
+        var bubble = root.querySelector('.dm-bubble');
+        var textEl = root.querySelector('.dm-text');
+        var srEl = root.querySelector('.dm-sr');
+        var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        var chars = [];
+        var full = '';
+        var index = 0;
+        var timer = null;
+        var typing = false;
+        var listeners = [];
+
+        function stopTyping() {
+          clearTimeout(timer);
+          timer = null;
+          typing = false;
+          root.classList.remove('talking');
+        }
+
+        function finishTyping() {
+          stopTyping();
+          textEl.textContent = full;
+        }
+
+        function tick() {
+          index += 1;
+          textEl.textContent = chars.slice(0, index).join('');
+          if (index >= chars.length) {
+            finishTyping();
+            return;
+          }
+          var last = chars[index - 1];
+          timer = setTimeout(tick, /[.,!?]/.test(last) ? 170 : 28);
+        }
+
+        function wave() {
+          if (reduceMotion) return;
+          root.classList.remove('waving');
+          void svg.getBoundingClientRect(); // restart the animation
+          root.classList.add('waving');
+        }
+
+        arm.addEventListener('animationend', function () {
+          root.classList.remove('waving');
+        });
+
+        function show() {
+          root.classList.remove('dm-hidden');
+          bubble.removeAttribute('aria-hidden');
+        }
+
+        function hide() {
+          stopTyping();
+          textEl.textContent = full;
+          root.classList.add('dm-hidden');
+          bubble.setAttribute('aria-hidden', 'true');
+        }
+
+        function say(text) {
+          full = text == null ? '' : String(text);
+          chars = Array.from(full);
+          stopTyping();
+          show();
+          srEl.textContent = full;
+          wave();
+          if (reduceMotion || chars.length === 0) {
+            textEl.textContent = full;
+            return;
+          }
+          index = 0;
+          textEl.textContent = '';
+          typing = true;
+          root.classList.add('talking');
+          timer = setTimeout(tick, 150);
+        }
+
+        function onNext(callback) {
+          if (typeof callback !== 'function') return function () {};
+          listeners.push(callback);
+          return function () {
+            listeners = listeners.filter(function (fn) { return fn !== callback; });
+          };
+        }
+
+        root.querySelector('.dm-next').addEventListener('click', function () {
+          // First click while typing just reveals the full text
+          if (typing) {
+            finishTyping();
+            return;
+          }
+          listeners.slice().forEach(function (fn) {
+            try { fn(); } catch (err) { console.error('[DogeMascot] onNext callback failed', err); }
+          });
+        });
+
+        root.querySelector('.dm-hide').addEventListener('click', hide);
+
+        svg.addEventListener('click', function () {
+          if (root.classList.contains('dm-hidden') && full) {
+            show();
+            wave();
+          } else {
+            wave();
+          }
+        });
+
+        window.DogeMascot = { say: say, hide: hide, show: show, onNext: onNext };
+      })();
+    </script>
+  </div>
+  <!-- ===================== END DOGE MASCOT BLOCK ===================== -->
+
+  <script>
+    // Demo: cycle through three example messages with the Next button
+    (function () {
+      var messages = [
+        "Much welcome! I'm Sir Doge, guardian of the War of Lords Arena. Wow.",
+        'Join a tournament, survive 4 qualification rounds, then battle through the semifinals and the final!',
+        'The top lords split the prize pool onchain. Such glory! Press Next to start over.'
+      ];
+      var current = 0;
+
+      window.DogeMascot.onNext(function () {
+        current = (current + 1) % messages.length;
+        window.DogeMascot.say(messages[current]);
+      });
+
+      setTimeout(function () {
+        window.DogeMascot.say(messages[0]);
+      }, 600);
+    })();
+  </script>
+</body>
+</html>
