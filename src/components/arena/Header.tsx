@@ -17,7 +17,7 @@ const Header = () => (
         <img src="/logo-wol-doge.png" alt="War of Lords" width={840} height={659} className="site-logo-img" />
       </a>
       <div className="header-bar header-bar--logo flex items-center justify-end gap-3 py-5">
-        <nav className="hidden min-w-0 items-center min-[900px]:flex justify-end gap-1.5 font-display text-[11px] tracking-[0.12em] sm:gap-2 sm:text-xs">
+        <nav className="hidden min-w-0 flex-1 items-center justify-between min-[900px]:flex gap-1.5 font-display text-[11px] tracking-[0.12em] sm:gap-2 sm:text-xs">
           <a href="#how" className="nav-pill hidden md:inline-flex">HOW IT WORKS</a>
           <a href="#tournaments" className="nav-pill hidden lg:inline-flex">TOURNAMENTS</a>
           <a href="#hall-of-fame" className="nav-pill hidden lg:inline-flex">HALL OF FAME</a>
