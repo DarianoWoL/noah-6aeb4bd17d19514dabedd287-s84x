@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ShieldAlert, Swords } from 'lucide-react';
+import { ExternalLink, ShieldAlert, Swords } from 'lucide-react';
 import heroImage from '@/assets/hero-arena.jpg';
 import { PLAY_GAME_URL } from '@/lib/contract';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -60,6 +60,21 @@ const Hero = () => {
           <Swords className="h-4 w-4" />
           PLAY THE GAME
         </a>
+      </motion.div>
+
+      <motion.div {...fadeUp(0.55)} className="mt-6 max-w-xl">
+        <a
+          href={PLAY_GAME_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-gold flex w-full items-center justify-center gap-3 rounded-md px-6 py-5 font-display text-base font-bold tracking-[0.12em] sm:inline-flex sm:w-auto sm:px-10 sm:text-lg"
+        >
+          Play the full game on DogeOS
+          <ExternalLink className="h-5 w-5 shrink-0" />
+        </a>
+        <p className="mt-3 text-base italic text-muted-foreground sm:text-lg">
+          Real-time strategy on DogeOS testnet. Sign in with the DogeOS Connect Kit, buy a ticket, win DOGE.
+        </p>
       </motion.div>
 
       {isPhone && <HeroMascot variant="inline" />}

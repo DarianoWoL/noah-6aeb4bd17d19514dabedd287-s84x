@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" data-theme="doge">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐶</text></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>War of Lords Arena - Onchain Tournaments on DogeOS</title>
+    <meta name="description" content="A real-time strategy game of skill with tournament tickets and prizes on the DogeOS testnet. Play, win DOGE, verify everything on-chain." />
+
+    <!-- Social preview (Open Graph) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://war-of-lords-arena.netlify.app/" />
+    <meta property="og:title" content="War of Lords Arena - Onchain Tournaments on DogeOS" />
+    <meta property="og:description" content="A real-time strategy game of skill with tournament tickets and prizes on the DogeOS testnet. Play, win DOGE, verify everything on-chain." />
+    <meta property="og:image" content="https://war-of-lords-arena.netlify.app/wol-share.jpg" />
+    <meta property="og:image:width" content="1376" />
+    <meta property="og:image:height" content="768" />
+
+    <!-- Social preview (Twitter / X) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="War of Lords Arena - Onchain Tournaments on DogeOS" />
+    <meta name="twitter:description" content="A real-time strategy game of skill with tournament tickets and prizes on the DogeOS testnet. Play, win DOGE, verify everything on-chain." />
+    <meta name="twitter:image" content="https://war-of-lords-arena.netlify.app/wol-share.jpg" />
+    <!-- Apply the saved theme before first paint (Doge is the default). -->
+    <script>
+      (function () {
+        var theme = 'doge';
+        try {
+          var saved = window.localStorage.getItem('wol-theme');
+          if (saved === 'classic' || saved === 'doge') theme = saved;
+        } catch (e) {
+          /* storage unavailable: keep default */
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+  <script>
+  window.op=window.op||function(){var n=[];return new Proxy(function(){arguments.length&&n.push([].slice.call(arguments))},{get:function(t,r){return"q"===r?n:function(){n.push([r].concat([].slice.call(arguments)))}} ,has:function(t,r){return"q"===r}}) }();
+  window.op('init', {
+    apiUrl: 'https://openpanel.trynoah.ai/api',
+    clientId: '8717cd5a-3665-461d-b92b-fb72e1c4b509',
+    trackScreenViews: true,
+    trackOutgoingLinks: true,
+    trackAttributes: true,
+  });
+</script>
+<script src="https://openpanel.dev/op1.js" defer async></script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    
+  </body>
+</html>

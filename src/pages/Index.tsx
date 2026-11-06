@@ -6,6 +6,7 @@ import LiveStats from '@/components/arena/LiveStats';
 import Simulation from '@/components/arena/Simulation';
 import ArenaActivity from '@/components/arena/ArenaActivity';
 import ContractLink from '@/components/arena/ContractLink';
+import WalletLookup from '@/components/arena/WalletLookup';
 import Footer from '@/components/arena/Footer';
 import SkyClouds from '@/components/arena/SkyClouds';
 import ThemeToggle from '@/components/arena/ThemeToggle';
@@ -19,6 +20,7 @@ const Index = () => (
       <HowItWorks />
       <LiveArena />
       <LiveStats />
+      <WalletLookup />
       <ArenaActivity />
       <Simulation />
       <ContractLink />

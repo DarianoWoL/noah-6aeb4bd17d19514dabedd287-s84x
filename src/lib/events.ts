@@ -80,7 +80,7 @@ async function fetchLogs(): Promise<ethers.Log[]> {
 }
 
 /** Decodes one log; returns null (and skips it) if it can't be parsed. */
-function toArenaEvent(log: ethers.Log): ArenaEvent | null {
+export function toArenaEvent(log: ethers.Log): ArenaEvent | null {
   try {
     const parsed = iface.parseLog({ topics: [...log.topics], data: log.data });
     if (!parsed || !(parsed.name in EVENT_KINDS)) return null;
@@ -115,7 +115,7 @@ function rankWinners(events: ArenaEvent[]): Winner[] {
 }
 
 /** Adds block timestamps to feed items (one request per unique block, batched by ethers). */
-async function attachTimestamps(feed: ArenaEvent[]): Promise<ArenaEvent[]> {
+export async function attachTimestamps(feed: ArenaEvent[]): Promise<ArenaEvent[]> {
   const blocks = [...new Set(feed.map((e) => e.blockNumber))];
   const fetched = await Promise.all(blocks.map((n) => provider.getBlock(n).catch(() => null)));
   const times = new Map(blocks.map((n, i) => [n, fetched[i]?.timestamp ?? null]));
