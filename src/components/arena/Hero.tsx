@@ -50,25 +50,14 @@ const Hero = () => {
         Pay tournament tickets and win prizes in a game of skill - all on DogeOS.
       </motion.p>
 
-      <motion.div {...fadeUp(0.45)} className="mt-10">
-        <a
-          href={PLAY_GAME_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-gold inline-flex items-center gap-3 rounded-md px-8 py-4 font-display text-sm font-bold tracking-[0.18em]"
-        >
-          <Swords className="h-4 w-4" />
-          PLAY THE GAME
-        </a>
-      </motion.div>
-
-      <motion.div {...fadeUp(0.55)} className="mt-6 max-w-xl">
+      <motion.div {...fadeUp(0.45)} className="mt-10 max-w-xl">
         <a
           href={PLAY_GAME_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="btn-gold flex w-full items-center justify-center gap-3 rounded-md px-6 py-5 font-display text-base font-bold tracking-[0.12em] sm:inline-flex sm:w-auto sm:px-10 sm:text-lg"
         >
+          <Swords className="h-5 w-5 shrink-0" />
           Play the full game on DogeOS
           <ExternalLink className="h-5 w-5 shrink-0" />
         </a>
